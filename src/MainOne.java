@@ -50,15 +50,14 @@ class ClientOne extends JFrame {
             OutputStreamWriter owriter = new OutputStreamWriter(socket.getOutputStream());
             writer = new BufferedWriter(owriter);
 
-            writer.write(name + "\n");
-            writer.flush();
 
 
             sendButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        String msg = fieldOne.getText() + "\n";
+                        writer.write(name + "\n" );
+                        String msg = fieldOne.getText()+"\n";
                         fieldOne.setText("");
                         areaOne.setText(areaOne.getText());
                         writer.write(msg);
@@ -100,7 +99,8 @@ public class MainOne{
     public static void main(String[] args) {
         ClientOne one = new ClientOne();
         one.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        one.setTitle("Hello world");
+        one.setTitle("Chat Application");
+        one.setResizable(false);
         one.setBounds(150,100,400,500);
         one.setVisible(true);
     }

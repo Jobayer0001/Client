@@ -101,7 +101,8 @@ public class MainTwo{
     public static void main(String[] args) {
         ClientTwo two = new ClientTwo();
         two.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        two.setTitle("Hello world");
+        two.setTitle("Chat Application");
+        two.setResizable(false);
         two.setBounds(150,100,400,500);
         two.setVisible(true);
     }
