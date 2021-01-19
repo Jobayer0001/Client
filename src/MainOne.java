@@ -2,13 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 import java.net.Socket;
 
 class ClientOne extends JFrame {
     private JButton sendButton;
-    private JTextField fieldOne;
-    private JTextArea areaOne;
+    private JTextField textField;
+    private JTextArea textArea;
+    private JScrollPane scrollPane;
     private Container c;
 
     String name = "Rashed";
@@ -25,16 +28,22 @@ class ClientOne extends JFrame {
         c.setLayout(null);
 
 
-        areaOne = new JTextArea();
-        areaOne.setBounds(0, 0, 400, 434);
-        areaOne.setEditable(false);
-        areaOne.setBackground(Color.orange);
-        c.add(areaOne);
+        textArea = new JTextArea();
+        textArea.setBounds(0, 0, 400, 434);
+        textArea.setEditable(false);
+        textArea.setBackground(Color.orange);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        c.add(textArea);
+
+        scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(0, 0, 400, 434);
+        c.add(scrollPane);
 
 
-        fieldOne = new JTextField();
-        fieldOne.setBounds(01, 434, 307, 30);
-        c.add(fieldOne);
+        textField = new JTextField();
+        textField.setBounds(01, 434, 307, 30);
+        c.add(textField);
 
         sendButton = new JButton("Send");
         sendButton.setBounds(312, 434, 70, 30);
@@ -58,11 +67,11 @@ class ClientOne extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        String msg = fieldOne.getText()+"\n";
-                        fieldOne.setText("");
-                        areaOne.setText(areaOne.getText());
-                        writer.write(msg);
-                        writer.flush();
+                        String msg = textField.getText()+"\n";
+                            textField.setText("");
+                            writer.write(msg);
+                            writer.flush();
+
                     } catch (IOException ea) {
                         ea.printStackTrace();
                     }
@@ -70,13 +79,12 @@ class ClientOne extends JFrame {
             });
 
 
-
             Thread thread = new Thread(){
                 public void run(){
                     try{
                         String line = reader.readLine() + "\n";
                         while (line != null){
-                            areaOne.append(line);
+                            textArea.append(line);
                             line = reader.readLine() + "\n";
                         }
                     }
