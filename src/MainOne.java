@@ -51,12 +51,13 @@ class ClientOne extends JFrame {
             writer = new BufferedWriter(owriter);
 
 
+            writer.write(name + "\n" );
+            writer.flush();
 
             sendButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        writer.write(name + "\n" );
                         String msg = fieldOne.getText()+"\n";
                         fieldOne.setText("");
                         areaOne.setText(areaOne.getText());
